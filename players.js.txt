@@ -1,0 +1,14 @@
+const players = [
+  "Patrick",
+  "Alicia",
+  "Ben",
+  "Cheryl",
+  "David",
+  "Ethan",
+  "Fiona",
+  "George",
+  "Hannah",
+  "Ivan",
+  "Jasmine",
+  "Ken"
+];

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Badminton Booking</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .tab { display: inline-block; margin-right: 10px; padding: 5px 10px; background: #eee; cursor: pointer; }
+    .tab.active { background: #ccc; }
+    .session { display: none; margin-top: 20px; }
+    .session.active { display: block; }
+    .player-select { width: 200px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>🏸 Badminton Booking</h2>
+  <div id="tabs"></div>
+
+  <div id="sessions"></div>
+
+  <script src="players.js"></script>
+  <script>
+    const dates = ["2025-08-08", "2025-08-09", "2025-08-10"]; // Add more dates as needed
+    const tabsContainer = document.getElementById("tabs");
+    const sessionsContainer = document.getElementById("sessions");
+
+    dates.forEach((date, index) => {
+      const tab = document.createElement("div");
+      tab.className = "tab" + (index === 0 ? " active" : "");
+      tab.textContent = date;
+      tab.onclick = () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        document.querySelectorAll(".session").forEach(s => s.classList.remove("active"));
+        document.getElementById("session-" + index).classList.add("active");
+      };
+      tabsContainer.appendChild(tab);
+
+      const session = document.createElement("div");
+      session.className = "session" + (index === 0 ? " active" : "");
+      session.id = "session-" + index;
+
+      session.innerHTML = `
+        <label>Date: <input type="text" value="${date}"></label><br>
+        <label>Time: <input type="text" placeholder="e.g. 7pm - 9pm"></label><br>
+        <label>Court: <input type="text" placeholder="Court number or name"></label><br><br>
+      `;
+
+      for (let i = 1; i <= 12; i++) {
+        const select = document.createElement("select");
+        select.className = "player-select";
+        select.innerHTML = `<option value="">Player ${i}</option>` +
+          players.map(name => `<option value="${name}">${name}</option>`).join("");
+        session.appendChild(select);
+        session.appendChild(document.createElement("br"));
+      }
+
+      sessionsContainer.appendChild(session);
+    });
+  </script>
+</body>
+</html>
